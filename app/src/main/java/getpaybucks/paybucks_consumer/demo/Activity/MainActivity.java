@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public void wallet(){
         // TODO Redirect to wallet payment
     }
+
     @OnClick(R.id.card_payment)
     public void card() {
         Intent intent = new Intent(getApplicationContext(), CardDetailsActivity.class);

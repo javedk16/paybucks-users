@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.widget.Toast;
 
 import com.vinaygaba.creditcardview.CreditCardView;
 
@@ -40,12 +41,19 @@ public class CardDetailsActivity extends AppCompatActivity {
         String cardName = mCreditCardView.getCardName();
         String cardExpiry = mCreditCardView.getExpiryDate();
 
-        PreferenceUtils.setPrefCurrentCardNumber(mContext, cardNumber);
-        PreferenceUtils.setPrefCurrentCardName(mContext, cardName);
-        PreferenceUtils.setPrefCurrentCardExpiry(mContext, cardExpiry);
+        if(!(cardNumber.equals("") && cardName.equals("") && cardExpiry.equals("MM/YY"))) {
 
-        Intent intent = new Intent(getApplicationContext(), OtherDetailsActivity.class);
-        startActivity(intent);
+            PreferenceUtils.setPrefCurrentCardNumber(mContext, cardNumber);
+            PreferenceUtils.setPrefCurrentCardName(mContext, cardName);
+            PreferenceUtils.setPrefCurrentCardExpiry(mContext, cardExpiry);
+
+            Intent intent = new Intent(getApplicationContext(), OtherDetailsActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(mContext, "Please fill in all the details and then proceed",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
     /**

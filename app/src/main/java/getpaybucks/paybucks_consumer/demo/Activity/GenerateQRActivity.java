@@ -15,6 +15,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import getpaybucks.paybucks_consumer.R;
 import getpaybucks.paybucks_consumer.demo.Util.Constants;
 import getpaybucks.paybucks_consumer.demo.Util.PreferenceUtils;
+import getpaybucks.paybucks_consumer.demo.Util.UserDataFetcher;
 
 public class GenerateQRActivity extends Activity {
 
@@ -34,12 +35,16 @@ public class GenerateQRActivity extends Activity {
 
         amount = getIntent().getExtras().getInt(Constants.AMOUNT);
 
-        qrString = PreferenceUtils.getPrefCurrentCardName(mContext) + "$"
-                + PreferenceUtils.getPrefCurrentCardNumber(mContext) + "$"
-                + PreferenceUtils.getPrefCurrentCardExpiry(mContext) + "$"
-                + PreferenceUtils.getPrefCurrentCardCvv(mContext) + "$"
-                + PreferenceUtils.getPrefPhoneNumber(mContext) + "$"
-                + amount;
+        qrString = PreferenceUtils.getPrefCurrentCardName(mContext) + "$"    //Name
+                + PreferenceUtils.getPrefCurrentCardNumber(mContext) + "$"   //Card No
+                + PreferenceUtils.getPrefCurrentCardExpiry(mContext) + "$"   //Expiry
+                + PreferenceUtils.getPrefCurrentCardCvv(mContext) + "$"      //CVV
+                + PreferenceUtils.getPrefPhoneNumber(mContext) + "$"         //Phone
+                + amount + "$"                                               //Amount
+                + "credit" + "$"                                                  //Payment Type
+                + UserDataFetcher.getEmail(mContext)  + "$"                       //Email
+                + UserDataFetcher.getDeviceId(mContext)   + "$"                   //DeviceId
+                ;
 
         QRCodeWriter wr = new QRCodeWriter();
         BitMatrix bm = new BitMatrix(700, 700);
@@ -59,16 +64,4 @@ public class GenerateQRActivity extends Activity {
         qrCode.setImageBitmap(bmp);
     }
 
-    public void parseString(String s){
-
-        String splitArray[] = s.split("$");
-
-        String cardName = splitArray[0];
-        String cardNumber = splitArray[1];
-        String cardExpiry = splitArray[2];
-        String cardCvv = splitArray[3];
-        String phoneNumber = splitArray[4];
-        String amount = splitArray[5];
-
-    }
 }
