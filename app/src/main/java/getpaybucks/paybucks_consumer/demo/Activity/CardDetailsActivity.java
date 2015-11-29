@@ -29,9 +29,21 @@ public class CardDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
 
+        mContext = getApplicationContext();
+
         ButterKnife.inject(this);
 
-        mContext = getApplicationContext();
+        /*if(PreferenceUtils.getPrefCurrentCardName(mContext) != null){
+            mCreditCardView.setCardName(PreferenceUtils.getPrefCurrentCardName(mContext));
+        }
+        if(PreferenceUtils.getPrefCurrentCardNumber(mContext) != null){
+            mCreditCardView.setCardNumber(PreferenceUtils.getPrefCurrentCardNumber(mContext));
+        }
+        if(PreferenceUtils.getPrefCurrentCardExpiry(mContext) != null){
+            mCreditCardView.setExpiryDate(PreferenceUtils.getPrefCurrentCardExpiry(mContext));
+        }*/
+
+        mCreditCardView.setCardName("LOL");
     }
 
     @OnClick(R.id.proceed)
